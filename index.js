@@ -9,10 +9,10 @@ const client = new Client({
   ],
 });
 
-// Debug line to check token
+// Debug: check token
 if (!process.env.DISCORD_TOKEN) {
     console.error("ERROR: DISCORD_TOKEN not found! Make sure it's set in Railway variables.");
-    process.exit(1); // stop the bot if token is missing
+    process.exit(1);
 } else {
     console.log("DISCORD_TOKEN length:", process.env.DISCORD_TOKEN.length);
 }
