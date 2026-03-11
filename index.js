@@ -1,11 +1,29 @@
+// index.js
 const { Client, GatewayIntentBits } = require('discord.js');
 
+// Create Discord client
 const client = new Client({
-  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers]
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMembers,
+  ],
 });
 
+// Debug line to check token
+if (!process.env.DISCORD_TOKEN) {
+    console.error("ERROR: DISCORD_TOKEN not found! Make sure it's set in Railway variables.");
+    process.exit(1); // stop the bot if token is missing
+} else {
+    console.log("DISCORD_TOKEN length:", process.env.DISCORD_TOKEN.length);
+}
+
+// Ready event
 client.once('ready', () => {
-  console.log(`Logged in as ${client.user.tag}`);
+    console.log(`✅ Logged in as ${client.user.tag}`);
 });
 
-client.login(process.env.DISCORD_TOKEN);
+// Login with token
+client.login(process.env.DISCORD_TOKEN).catch(err => {
+    console.error("Failed to login. Invalid token?");
+    console.error(err);
+});
